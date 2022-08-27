@@ -115,17 +115,21 @@ def verified(tokens):
             print(Fore.RED + f"{token} invalid")
             with open(f'invalid.txt', 'a') as f:
                 f.write(token + "\n")
-
         elif r.status_code == 200:
             data = r.json()
-            try:
-                phone = data['phone']
+            phone = data['phone']
+            verified = data['verified']
+            if phone == None:
+                print(Fore.YELLOW + f"{token} no phone number")
+                with open(f'not_fully_verified.txt', 'a') as f:
+                    f.write(token + "\n")
+            if verified == False:
+                print(Fore.YELLOW + f"{token} needs to be verified")
+                with open(f'need_verification.txt', 'a') as f:
+                    f.write(token + "\n")
+            if phone and verified:
                 print(Fore.GREEN + f"{token} fully verified")
                 with open(f'fully_verified.txt', 'a') as f:
-                    f.write(token + "\n")
-            except:
-                print(Fore.YELLOW + f"{token} not fully verified")
-                with open(f'not_fully_verified.txt', 'a') as f:
                     f.write(token + "\n")
 
 try:
