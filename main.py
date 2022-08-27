@@ -111,7 +111,6 @@ def verified(tokens):
     for token in tokens:
         headers = http_headers(token)
         r = httpx.get("https://discord.com/api/v9/users/@me" , headers=headers)
-        global r1
         if r.status_code == 401:
             print(Fore.RED + f"{token} invalid")
             with open(f'invalid.txt', 'a') as f:
