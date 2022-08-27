@@ -119,11 +119,12 @@ def verified(tokens):
 
         elif r.status_code == 200:
             data = r.json()
-            if "phone" in data:
+            try:
+                phone = data['phone']
                 print(Fore.GREEN + f"{token} fully verified")
                 with open(f'fully_verified.txt', 'a') as f:
                     f.write(token + "\n")
-            else:
+            except:
                 print(Fore.YELLOW + f"{token} not fully verified")
                 with open(f'not_fully_verified.txt', 'a') as f:
                     f.write(token + "\n")
